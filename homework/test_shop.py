@@ -98,6 +98,21 @@ class TestCart:
         assert product not in cart.products
 
 
+    def test_total_price_positive(self, cart, product):
+        cart.add_product(product, 50)
+        assert cart.get_total_price() == 5000
+
+
+    def test_buy_from_cart_positive(self, cart, product):
+        cart.add_product(product, 40)
+        cart.buy()
+        assert product.quantity == 960
+
+
+    def test_buy_more_than_possible(self, cart, product):
+        cart.add_product(product, 987654321)
+        with pytest.raises(ValueError):
+            cart.buy()
 
 
 
